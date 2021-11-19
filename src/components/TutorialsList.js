@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import TutorialDataService from "../services/TutorialService";
+import UserDataService from "../services/UserService";
 import { useTable } from "react-table";
 
 import Pagination from "@material-ui/lab/Pagination";
 //Modal Delete
 import Swal from 'sweetalert2'
 
-const TutorialsList = (props) => {
-  const [tutorials, setTutorials] = useState([]);
+const UsersList = (props) => {
+  const [users, setUsers] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
 
-  const tutorialsRef = useRef();
+  const usersRef = useRef();
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
@@ -18,7 +18,7 @@ const TutorialsList = (props) => {
 
   const pageSizes = [5, 10, 15];
 
-  tutorialsRef.current = tutorials;
+  usersRef.current = users;
 
   const onChangeSearchTitle = (e) => {
     const searchTitle = e.target.value;
@@ -43,30 +43,28 @@ const TutorialsList = (props) => {
     return params;
   };
 
-  const retrieveTutorials = () => {
+  const retrieveUsers = () => {
     const params = getRequestParams(searchTitle, page, pageSize);
 
-    TutorialDataService.getAll(params)
+    UserDataService.getAll(params)
       .then((response) => {
         const { data, meta } = response.data;
-        setTutorials(data);
+        setUsers(data);
         setCount(meta.last_page);
-
-        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  useEffect(retrieveTutorials, [page, pageSize]);
+  useEffect(retrieveUsers, [page, pageSize]);
 
   const refreshList = () => {
-    retrieveTutorials();
+    retrieveUsers();
   };
 
-  const removeAllTutorials = () => {
-    TutorialDataService.removeAll()
+  const removeAllUsers = () => {
+    UserDataService.removeAll()
       .then((response) => {
         console.log(response.data);
         refreshList();
@@ -78,17 +76,17 @@ const TutorialsList = (props) => {
 
   const findByTitle = () => {
     setPage(1);
-    retrieveTutorials();
+    retrieveUsers();
   };
 
   const openTutorial = (rowIndex) => {
-    const id = tutorialsRef.current[rowIndex].id;
+    const id = usersRef.current[rowIndex].id;
 
-    props.history.push("/tutorials/" + id);
+    props.history.push("/users/" + id);
   };
 
   function deleteTutorial(rowIndex) {
-    const id = tutorialsRef.current[rowIndex].id;
+    const id = usersRef.current[rowIndex].id;
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -104,14 +102,14 @@ const TutorialsList = (props) => {
           'Your file has been deleted.',
           'success'
         )
-        TutorialDataService.remove(id)
+        UserDataService.remove(id)
       .then((response) => {
-        props.history.push("/tutorials");
+        props.history.push("/users");
         console.log(response);
-        let newTutorials = [...tutorialsRef.current];
-        newTutorials.splice(rowIndex, 1);
+        let newUsers = [...usersRef.current];
+        newUsers.splice(rowIndex, 1);
 
-        setTutorials(newTutorials);
+        setUsers(newUsers);
       })
       .catch((e) => {
         console.log(e);
@@ -122,7 +120,6 @@ const TutorialsList = (props) => {
 
   const handlePageChange = (event, value) => {
     setPage(value);
-    console.log("Value",value);
   };
 
   const handlePageSizeChange = (event) => {
@@ -177,7 +174,7 @@ const TutorialsList = (props) => {
     prepareRow,
   } = useTable({
     columns,
-    data: tutorials,
+    data: users,
   });  
 
 
@@ -261,7 +258,7 @@ const TutorialsList = (props) => {
       </div> 
 
       <div className="col-md-8">
-        <button className="btn btn-sm btn-danger" onClick={removeAllTutorials}>
+        <button className="btn btn-sm btn-danger" onClick={removeAllUsers}>
           Remove All
         </button>
       </div>
@@ -269,4 +266,4 @@ const TutorialsList = (props) => {
   );
 };
 
-export default TutorialsList;
+export default UsersList;

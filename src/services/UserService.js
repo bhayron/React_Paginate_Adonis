@@ -28,7 +28,7 @@ const findByTitle = (title) => {
   return api.get(`/users?title=${title}`);
 };
 
-const TutorialService = {
+const UserService = {
   getAll,
   get,
   create,
@@ -38,4 +38,4 @@ const TutorialService = {
   findByTitle,
 };
 
-export default TutorialService;
+export default UserService;
