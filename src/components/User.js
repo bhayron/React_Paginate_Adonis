@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import TutorialDataService from "../services/UserService";
+import UserDataService from "../services/UserService";
 
-const Tutorial = props => {
-  const initialTutorialState = {
+const User = props => {
+  const initialUserState = {
     id: null,
     username: "",
     name: "",
     published: false
   };
-  const [currentTutorial, setCurrentTutorial] = useState(initialTutorialState);
+  const [currentUser, setCurrentUser] = useState(initialUserState);
   const [message, setMessage] = useState("");
 
-  const getTutorial = id => {
-    TutorialDataService.get(id)
+  const getUser = id => {
+    UserDataService.get(id)
       .then(response => {
-        setCurrentTutorial(response.data);
+        setCurrentUser(response.data);
         console.log(response.data);
       })
       .catch(e => {
@@ -23,25 +23,25 @@ const Tutorial = props => {
   };
 
   useEffect(() => {
-    getTutorial(props.match.params.id);
+    getUser(props.match.params.id);
   }, [props.match.params.id]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setCurrentTutorial({ ...currentTutorial, [name]: value });
+    setCurrentUser({ ...currentUser, [name]: value });
   };
 
   const updatePublished = status => {
     var data = {
-      id: currentTutorial.id,
-      username: currentTutorial.username,
-      name: currentTutorial.name,
+      id: currentUser.id,
+      username: currentUser.username,
+      name: currentUser.name,
       published: status
     };
 
-    TutorialDataService.update(currentTutorial.id, data)
+    UserDataService.update(currentUser.id, data)
       .then(response => {
-        setCurrentTutorial({ ...currentTutorial, published: status });
+        setCurrentUser({ ...currentUser, published: status });
         console.log(response.data);
         setMessage("The status was updated successfully!");
       })
@@ -50,8 +50,8 @@ const Tutorial = props => {
       });
   };
 
-  const updateTutorial = () => {
-    TutorialDataService.update(currentTutorial.id, currentTutorial)
+  const updateUser = () => {
+    UserDataService.update(currentUser.id, currentUser)
       .then(response => {
         console.log(response.data);
         setMessage("The tutorial was updated successfully!");
@@ -61,11 +61,11 @@ const Tutorial = props => {
       });
   };
 
-  const deleteTutorial = () => {
-    TutorialDataService.remove(currentTutorial.id)
+  const deleteUser = () => {
+    UserDataService.remove(currentUser.id)
       .then(response => {
         console.log(response.data);
-        props.history.push("/tutorials");
+        props.history.push("/users");
       })
       .catch(e => {
         console.log(e);
@@ -74,9 +74,9 @@ const Tutorial = props => {
 
   return (
     <div>
-      {currentTutorial ? (
+      {currentUser ? (
         <div className="edit-form">
-          <h4>Tutorial</h4>
+          <h4>User</h4>
           <form>
             <div className="form-group">
               <label htmlFor="username">username</label>
@@ -85,7 +85,7 @@ const Tutorial = props => {
                 className="form-control"
                 id="username"
                 name="username"
-                value={currentTutorial.username}
+                value={currentUser.username}
                 onChange={handleInputChange}
               />
             </div>
@@ -96,7 +96,7 @@ const Tutorial = props => {
                 className="form-control"
                 id="name"
                 name="name"
-                value={currentTutorial.name}
+                value={currentUser.name}
                 onChange={handleInputChange}
               />
             </div>
@@ -105,11 +105,11 @@ const Tutorial = props => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentTutorial.published ? "Published" : "Pending"}
+              {currentUser.published ? "Published" : "Pending"}
             </div>
           </form>
 
-          {currentTutorial.published ? (
+          {currentUser.published ? (
             <button
               className="badge badge-primary mr-2"
               onClick={() => updatePublished(false)}
@@ -125,14 +125,14 @@ const Tutorial = props => {
             </button>
           )}
 
-          <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
+          <button className="badge badge-danger mr-2" onClick={deleteUser}>
             Delete
           </button>
 
           <button
             type="submit"
             className="badge badge-success"
-            onClick={updateTutorial}
+            onClick={updateUser}
           >
             Update
           </button>
@@ -141,11 +141,11 @@ const Tutorial = props => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Tutorial...</p>
+          <p>Please click on a User...</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Tutorial;
+export default User;

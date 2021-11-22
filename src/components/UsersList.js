@@ -79,13 +79,13 @@ const UsersList = (props) => {
     retrieveUsers();
   };
 
-  const openTutorial = (rowIndex) => {
+  const openUser = (rowIndex) => {
     const id = usersRef.current[rowIndex].id;
 
     props.history.push("/users/" + id);
   };
 
-  function deleteTutorial(rowIndex) {
+  function deleteUser(rowIndex) {
     const id = usersRef.current[rowIndex].id;
     Swal.fire({
       title: 'Are you sure?',
@@ -151,11 +151,11 @@ const UsersList = (props) => {
           const rowIdx = props.row.id;
           return (
             <div>
-              <span onClick={() => openTutorial(rowIdx)}>
+              <span onClick={() => openUser(rowIdx)}>
                 <i className="far fa-edit action mr-2"></i>
               </span>
                   {' '}
-              <span onClick={() => deleteTutorial(rowIdx)}>
+              <span onClick={() => deleteUser(rowIdx)}>
                 <i className="fas fa-trash action"></i>
               </span>            
             </div>            

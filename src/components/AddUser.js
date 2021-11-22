@@ -1,30 +1,30 @@
 import React, { useState } from "react";
-import TutorialDataService from "../services/UserService";
+import UserDataService from "../services/UserService";
 
-const AddTutorial = () => {
-  const initialTutorialState = {
+const AddUser = () => {
+  const initialUserState = {
     id: null,
     username: "",
     name: "",
     published: false
   };
-  const [tutorial, setTutorial] = useState(initialTutorialState);
+  const [tutorial, setUser] = useState(initialUserState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setTutorial({ ...tutorial, [name]: value });
+    setUser({ ...tutorial, [name]: value });
   };
 
-  const saveTutorial = () => {
+  const saveUser = () => {
     var data = {
       username: tutorial.username,
       name: tutorial.name
     };
 
-    TutorialDataService.create(data)
+    UserDataService.create(data)
       .then(response => {
-        setTutorial({
+        setUser({
           id: response.data.id,
           username: response.data.username,
           name: response.data.name,
@@ -38,8 +38,8 @@ const AddTutorial = () => {
       });
   };
 
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
+  const newUser = () => {
+    setUser(initialUserState);
     setSubmitted(false);
   };
 
@@ -48,7 +48,7 @@ const AddTutorial = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newTutorial}>
+          <button className="btn btn-success" onClick={newUser}>
             Add
           </button>
         </div>
@@ -80,7 +80,7 @@ const AddTutorial = () => {
             />
           </div>
 
-          <button onClick={saveTutorial} className="btn btn-success">
+          <button onClick={saveUser} className="btn btn-success">
             Submit
           </button>
         </div>
@@ -89,4 +89,4 @@ const AddTutorial = () => {
   );
 };
 
-export default AddTutorial;
+export default AddUser;
