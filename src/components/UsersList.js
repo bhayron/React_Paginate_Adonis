@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import UserDataService from "../services/UserService";
 import { useTable } from "react-table";
+import {Button} from 'reactstrap'
 
 import Pagination from "@material-ui/lab/Pagination";
-//Modal Delete
+
 import Swal from 'sweetalert2'
 
 const UsersList = (props) => {
@@ -48,6 +49,7 @@ const UsersList = (props) => {
 
     UserDataService.getAll(params)
       .then((response) => {
+        console.log(response.data);
         const { data, meta } = response.data;
         setUsers(data);
         setCount(meta.last_page);
@@ -147,17 +149,33 @@ const UsersList = (props) => {
       {
         Header: "Actions",
         accessor: "actions",
+       
         Cell: (props) => {
           const rowIdx = props.row.id;
           return (
             <div>
+              <Button
+              type="button"
+              color="warning"
+              className="mr-2"
+              size="sm"
+              >
               <span onClick={() => openUser(rowIdx)}>
-                <i className="far fa-edit action mr-2"></i>
+                <i className="far fa-edit action"></i>
               </span>
+              </Button>
                   {' '}
+
+              <Button
+              type="button"
+              color="danger"
+              className="mr-2"
+              size="sm"
+              >
               <span onClick={() => deleteUser(rowIdx)}>
                 <i className="fas fa-trash action"></i>
-              </span>            
+              </span>   
+              </Button>         
             </div>            
           );
         },
@@ -180,7 +198,7 @@ const UsersList = (props) => {
 
   return (
     <div className="list row">
-      <div className="col-md-8">
+      <div className="col-md-6">
         <div className="input-group mb-3">
           <input
             type="text"
@@ -201,14 +219,13 @@ const UsersList = (props) => {
         </div>
       </div>
 
-      <div className="col-md-12 list">
-       
+      <div className="col-md-12 list">      
 
         <table
-          className="table table-striped table-bordered"
+          className="table"
           {...getTableProps()}
         >
-          <thead>
+          <thead >
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
@@ -219,7 +236,7 @@ const UsersList = (props) => {
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()}>
+          <tbody {...getTableBodyProps()} >
             {rows.map((row, i) => {
               prepareRow(row);
               return (
