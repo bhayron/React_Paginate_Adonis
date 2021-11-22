@@ -25,7 +25,7 @@ const removeAll = () => {
 };
 
 const findByTitle = (title) => {
-  return api.get(`/users?title=${title}`);
+  return api.get(`/users?name=${title}`);
 };
 
 const UserService = {

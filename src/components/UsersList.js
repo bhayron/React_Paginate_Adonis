@@ -130,11 +130,11 @@ const UsersList = (props) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Title",
+        Header: "Username",
         accessor: "username",
       },
       {
-        Header: "Description",
+        Header: "Name",
         accessor: "name",
       },
       {
