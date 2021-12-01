@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import UserDataService from "../services/UserService";
 import { useTable } from "react-table";
-import {Button} from 'reactstrap'
+//import {Button} from 'reactstrap'
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import Pagination from "@material-ui/lab/Pagination";
 
