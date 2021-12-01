@@ -5,14 +5,33 @@ import { useTable } from "react-table";
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Pagination from "@material-ui/lab/Pagination";
 
 import Swal from 'sweetalert2'
 
+import AddUser from './AddUser'
+
+
+
 const UsersList = (props) => {
   const [users, setUsers] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
+
+  //modal
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const usersRef = useRef();
 
@@ -273,12 +292,36 @@ const UsersList = (props) => {
           />
         </div>
       </div> 
+      <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Add
+      </Button>
 
-      <div className="col-md-8">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Add User</DialogTitle>
+        <DialogContent>
+
+         <AddUser 
+         setOpen={setOpen}
+         
+         />
+
+        </DialogContent>
+        
+      </Dialog>
+    </div>
+  
+
+      {/* <div className="col-md-8">
         <button className="btn btn-sm btn-danger" onClick={removeAllUsers}>
           Remove All
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

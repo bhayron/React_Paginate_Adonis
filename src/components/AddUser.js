@@ -1,7 +1,20 @@
 import React, { useState } from "react";
 import UserDataService from "../services/UserService";
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 
-const AddUser = () => {
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(3),
+  },
+}));
+
+const AddUser = (setOpen) => {
+  const classes = useStyles();
   const initialUserState = {
     id: null,
     username: "",
@@ -14,6 +27,10 @@ const AddUser = () => {
   const handleInputChange = event => {
     const { name, value } = event.target;
     setUser({ ...tutorial, [name]: value });
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const saveUser = () => {
@@ -55,7 +72,7 @@ const AddUser = () => {
       ) : (
         <div>
           <div className="form-group">
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               className="form-control"
@@ -68,7 +85,7 @@ const AddUser = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">name</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               className="form-control"
@@ -80,9 +97,25 @@ const AddUser = () => {
             />
           </div>
 
-          <button onClick={saveUser} className="btn btn-success">
-            Submit
-          </button>
+              <Button
+                 className={classes.button}
+                 onClick={saveUser}
+                 variant="contained"
+                 color="primary"
+                 size="small"
+                 startIcon={<SaveIcon />}
+                >
+                    Save
+              </Button>
+
+          <Button 
+              onClick={handleClose}
+              variant="contained"
+              color="secondary"
+              size="small"
+              startIcon={<SaveIcon />}>
+            Cancel
+          </Button>
         </div>
       )}
     </div>
