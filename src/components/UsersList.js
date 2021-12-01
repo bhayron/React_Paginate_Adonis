@@ -159,22 +159,19 @@ const UsersList = (props) => {
               color="warning"
               className="mr-2"
               size="sm"
-              >
-              <span onClick={() => openUser(rowIdx)}>
-                <i className="far fa-edit action"></i>
-              </span>
+              onClick={() => openUser(rowIdx)}
+              >              
+                <i className="far fa-edit action"></i>              
               </Button>
                   {' '}
-
               <Button
               type="button"
               color="danger"
               className="mr-2"
               size="sm"
-              >
-              <span onClick={() => deleteUser(rowIdx)}>
-                <i className="fas fa-trash action"></i>
-              </span>   
+              onClick={() => deleteUser(rowIdx)}
+              >              
+                <i className="fas fa-trash action"></i>           
               </Button>         
             </div>            
           );
