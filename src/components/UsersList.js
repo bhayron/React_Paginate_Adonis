@@ -17,6 +17,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import Swal from 'sweetalert2'
 
 import AddUser from './AddUser'
+import User from './User'
 
 
 
@@ -108,6 +109,7 @@ const UsersList = (props) => {
   const openUser = (rowIndex) => {
     const id = usersRef.current[rowIndex].id;
 
+ 
     props.history.push("/users/" + id);
   };
 
@@ -178,15 +180,14 @@ const UsersList = (props) => {
           const rowIdx = props.row.id;
           return (
             <div>
-              <Button
-              type="button"
-              color="warning"
-              className="mr-2"
-              size="sm"
+               <IconButton 
+              color="primary"
+              aria-label="delete" 
               onClick={() => openUser(rowIdx)}
-              >              
-                <i className="far fa-edit action"></i>              
-              </Button>
+              >
+          <EditIcon />
+        </IconButton>              
+                    
                   {' '}
                    
               <IconButton 

@@ -21,12 +21,12 @@ const AddUser = ({setOpen}) => {
     name: "",
     published: false
   };
-  const [tutorial, setUser] = useState(initialUserState);
+  const [user, setUser] = useState(initialUserState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setUser({ ...tutorial, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
   const handleClose = () => {
@@ -35,8 +35,8 @@ const AddUser = ({setOpen}) => {
 
   const saveUser = () => {
     var data = {
-      username: tutorial.username,
-      name: tutorial.name
+      username: user.username,
+      name: user.name
     };
 
     UserDataService.create(data)
@@ -78,7 +78,7 @@ const AddUser = ({setOpen}) => {
               className="form-control"
               id="username"
               required
-              value={tutorial.username}
+              value={user.username}
               onChange={handleInputChange}
               name="username"
             />
@@ -91,7 +91,7 @@ const AddUser = ({setOpen}) => {
               className="form-control"
               id="name"
               required
-              value={tutorial.name}
+              value={user.name}
               onChange={handleInputChange}
               name="name"
             />
