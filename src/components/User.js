@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserDataService from "../services/UserService";
 
 const User = props => {
+  
   const initialUserState = {
     id: null,
     username: "",

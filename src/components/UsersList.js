@@ -107,9 +107,7 @@ const UsersList = (props) => {
   };
 
   const openUser = (rowIndex) => {
-    const id = usersRef.current[rowIndex].id;
-
- 
+    const id = usersRef.current[rowIndex].id; 
     props.history.push("/users/" + id);
   };
 
@@ -188,8 +186,7 @@ const UsersList = (props) => {
           <EditIcon />
         </IconButton>              
                     
-                  {' '}
-                   
+                  {' '}                   
               <IconButton 
               color="secondary"
               aria-label="delete" 
