@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import UserDataService from "../services/UserService";
 import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(3),
+    margin: theme.spacing(6),
   },
 }));
 
-const AddUser = (setOpen) => {
+const AddUser = ({setOpen}) => {
   const classes = useStyles();
   const initialUserState = {
     id: null,
@@ -113,7 +113,7 @@ const AddUser = (setOpen) => {
               variant="contained"
               color="secondary"
               size="small"
-              startIcon={<SaveIcon />}>
+              startIcon={<CancelIcon />}>
             Cancel
           </Button>
         </div>

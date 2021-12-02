@@ -10,6 +10,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Pagination from "@material-ui/lab/Pagination";
 
 import Swal from 'sweetalert2'
@@ -186,15 +188,14 @@ const UsersList = (props) => {
                 <i className="far fa-edit action"></i>              
               </Button>
                   {' '}
-              <Button
-              type="button"
-              color="danger"
-              className="mr-2"
-              size="sm"
+                   
+              <IconButton 
+              color="secondary"
+              aria-label="delete" 
               onClick={() => deleteUser(rowIdx)}
-              >              
-                <i className="fas fa-trash action"></i>           
-              </Button>         
+              >
+          <DeleteForeverIcon />
+        </IconButton>      
             </div>            
           );
         },
@@ -307,8 +308,7 @@ const UsersList = (props) => {
         <DialogContent>
 
          <AddUser 
-         setOpen={setOpen}
-         
+         setOpen={setOpen}         
          />
 
         </DialogContent>
