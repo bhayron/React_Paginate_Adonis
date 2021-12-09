@@ -212,6 +212,12 @@ const UsersList = (props) => {
     columns,
     data: users,
   });  
+//apertar enter pra pesquisar, arrumar depois
+const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log('do validate')
+    }
+  }
 
 
   return (
@@ -222,6 +228,7 @@ const UsersList = (props) => {
             type="text"
             className="form-control"
             placeholder="Search by username"
+            onKeyDown={handleKeyDown}
             value={searchTitle}
             onChange={onChangeSearchTitle}
           />
